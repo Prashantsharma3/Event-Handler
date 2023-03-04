@@ -6,25 +6,27 @@ class App extends React.Component {
     numInput: "",
   };
 
-  handleInput = (event) => {
-    if (event.target.id === "text-input") {
-      this.setState({
-        textInput: this.state.textInput + event.target.value,
-      });
-      console.log(
-        `Input in #text-input is ${this.state.textInput + event.target.value}`
-      );
-    } else if (event.target.id === "num-input") {
-      this.setState({
-        numInput: parseInt(this.state.numInput + event.target.value),
-      });
-      console.log(
-        `Input in #num-input is ${parseInt(
-          this.state.numInput + event.target.value
-        )}`
-      );
-    }
-  };
+ handleInput = (event) => {
+  const { id, value } = event.target;
+
+  if (id === "text-input") {
+    this.setState((prevState) => {
+      console.log(`Input in #text-input is ${prevState.textInput + value}`);
+      return {
+        textInput: prevState.textInput + value,
+      };
+    });
+  } else if (id === "num-input") {
+    this.setState((prevState) => {
+      const newNumInput = parseInt(prevState.numInput.toString() + value);
+      console.log(`Input in #num-input is ${newNumInput}`);
+      return {
+        numInput: newNumInput,
+      };
+    });
+  }
+};
+
 
   render() {
     return (
